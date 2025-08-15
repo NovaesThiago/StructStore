@@ -1,2 +1,2 @@
-# StructStore
-Sistema Organizacional de Controle de Estoque e Pedidos Utilizando a Linguagem C como base
+# Controle-de-Estoque-e-Pedidos
+Trabalho final de Estrutura de Dados I
