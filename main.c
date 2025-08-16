@@ -7,9 +7,11 @@
 int main()
 {
     ListaProdutos estoque;
+    PilhaMovimentacoes pilha;
     FilaPedidos fila;
 
     inicializarLista(&estoque);
+    inicializarPilha(&pilha);
     inicializarFila(&fila);
 
     int opcao, codigo, quantidade;
@@ -23,9 +25,10 @@ int main()
         printf("2 - Listar produtos\n");
         printf("3 - Atualizar produto\n");
         printf("4 - Remover produto\n");
-        printf("5 - Adicionar pedido\n");
-        printf("6 - Remover pedido\n");
-        printf("7 - Listar pedidos\n");
+        printf("5 - Desfazer última movimentação\n");
+        printf("6 - Adicionar pedido\n");
+        printf("7 - Remover pedido\n");
+        printf("8 - Listar pedidos\n");
         printf("0 - Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
@@ -47,7 +50,7 @@ int main()
             printf("Digite o preço do produto: ");
             scanf("%f", &preco);
 
-            inserirProduto(&estoque, codigo, nome, quantidade, preco);
+            inserirProdutoComHistorico(&estoque, &pilha, codigo, nome, quantidade, preco);
             break;
 
         case 2:
@@ -69,33 +72,31 @@ int main()
             printf("Digite o novo preço do produto: ");
             scanf("%f", &preco);
 
-            if (atualizarProduto(&estoque, codigo, nome, quantidade, preco))
-                printf("Produto atualizado.\n");
-            else
-                printf("Produto não encontrado.\n");
+            atualizarProdutoComHistorico(&estoque, &pilha, codigo, nome, quantidade, preco);
             break;
 
         case 4:
             printf("Digite o código do produto a ser removido: ");
             scanf("%d", &codigo);
 
-            if (removerProduto(&estoque, codigo))
-                printf("Produto removido.\n");
-            else
-                printf("Produto não encontrado.\n");
+            removerProdutoComHistorico(&estoque, &pilha, codigo);
             break;
 
         case 5:
+            desfazerMovimentacao(&pilha, &estoque);
+            break;
+
+        case 6:
             printf("Digite o código do pedido: ");
             scanf("%d", &codigo);
             enfileirarPedido(&fila, &estoque, codigo);
             break;
         
-        case 6:
+        case 7:
             desenfileirarPedido(&fila);
             break;
         
-        case 7:
+        case 8:
             listarPedidos(&fila, &estoque);
             break;
 
