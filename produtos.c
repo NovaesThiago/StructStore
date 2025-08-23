@@ -48,6 +48,7 @@ void inserirProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha,
     pushMovimentacao(pilha, INSERIR, vazio, depois);
 }
 
+//buscas
 Produto *buscarProduto(ListaProdutos *lista, int codigo)
 {
     Produto *atual = lista->inicio;
@@ -60,14 +61,17 @@ Produto *buscarProduto(ListaProdutos *lista, int codigo)
     return NULL;
 }
 
-void buscarProdutoNome(Produto* inicio, const char* nome) {
-    while (inicio != NULL) {
-        if (strstr(inicio->nome, nome) != NULL)
-            printf("Encontrado: %s (Código %d)\n", inicio->nome, inicio->codigo);
-        inicio = inicio->prox;
+Produto* buscarProdutoNome(Produto* inicio, const char* nome) {
+    Produto* atual = inicio;
+    while (atual != NULL) {
+        if (strcmp(atual->nome, nome) == 0) {
+            return atual;
+        }
+        atual = atual->prox;
     }
+    return NULL;
 }
-
+//fim buscas
 
 int atualizarProduto(ListaProdutos *lista, int codigo, char nome[], int quantidade, float preco)
 {

@@ -13,10 +13,13 @@ Produto* buscarProduto(Produto* inicio, int codigo){
     return NULL;
 }
 
-void buscarProdutoNome(Produto* inicio, const char* nome) {
-    while (inicio != NULL) {
-        if (strstr(inicio->nome, nome) != NULL)
-            printf("Encontrado: %s (Código %d)\n", inicio->nome, inicio->codigo);
-        inicio = inicio->prox;
+Produto* buscarProdutoNome(Produto* inicio, const char* nome) {
+    Produto* atual = inicio;
+    while (atual != NULL) {
+        if (strcmp(atual->nome, nome) == 0) {
+            return atual;
+        }
+        atual = atual->prox;
     }
+    return NULL;
 }

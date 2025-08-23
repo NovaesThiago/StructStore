@@ -29,9 +29,13 @@ int main()
         printf("6 - Adicionar pedido\n");
         printf("7 - Remover pedido\n");
         printf("8 - Listar pedidos\n");
+        printf("9 - Buscar produto por nome\n");
+        printf("10 - Ordenar por quantidade\n");
+        printf("11 - Ordenar por valor total\n");
         printf("0 - Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
+
 
         switch (opcao)
         {
@@ -98,6 +102,28 @@ int main()
         
         case 8:
             listarPedidos(&fila, &estoque);
+            break;
+        
+        case 9:
+            while (getchar() != '\n');
+            printf("Digite o nome do produto: ");
+            fgets(nome, sizeof(nome), stdin);
+            nome[strcspn(nome, "\n")] = 0;
+
+            Produto* encontrado = buscarProdutoNome(&estoque, nome);
+            if (encontrado)
+                printf("Produto encontrado: %s | Código: %d | Qtd: %d | Preço: R$ %.2f\n",
+                       encontrado->nome, encontrado->codigo, encontrado->quantidade, encontrado->preco);
+            else
+                printf("Produto não encontrado.\n");
+            break;
+
+        case 10:
+            ordenarPorQuantidade(&estoque);
+            break;
+
+        case 11:
+            ordenarPorValorTotal(&estoque);
             break;
 
         case 0:
