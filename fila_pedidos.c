@@ -69,7 +69,7 @@ int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo)
             continue;
         }
         adicionarItemPedido(novo, codProd, qtd);
-        p->quantidade -= qtd; // baixa do estoque
+        p->quantidade -= qtd;
     }
 
     if (novo->itens == NULL)

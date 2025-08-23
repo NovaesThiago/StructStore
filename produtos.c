@@ -48,7 +48,6 @@ void inserirProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha,
     pushMovimentacao(pilha, INSERIR, vazio, depois);
 }
 
-//buscas
 Produto *buscarProduto(ListaProdutos *lista, int codigo)
 {
     Produto *atual = lista->inicio;
@@ -61,17 +60,19 @@ Produto *buscarProduto(ListaProdutos *lista, int codigo)
     return NULL;
 }
 
-Produto* buscarProdutoNome(Produto* inicio, const char* nome) {
-    Produto* atual = inicio;
-    while (atual != NULL) {
-        if (strcmp(atual->nome, nome) == 0) {
+Produto *buscarProdutoNome(ListaProdutos *lista, const char *nome)
+{
+    Produto *atual = lista->inicio;
+    while (atual != NULL)
+    {
+        if (strcmp(atual->nome, nome) == 0)
+        {
             return atual;
         }
         atual = atual->prox;
     }
     return NULL;
 }
-//fim buscas
 
 int atualizarProduto(ListaProdutos *lista, int codigo, char nome[], int quantidade, float preco)
 {
@@ -94,9 +95,9 @@ void atualizarProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilh
         return;
     }
 
-    Produto antes = *p; // Guarda estado antigo
+    Produto antes = *p;
 
-    if (atualizarProduto(lista, codigo, novoNome, novaQtd, novoPreco)) 
+    if (atualizarProduto(lista, codigo, novoNome, novaQtd, novoPreco))
     {
         printf("Produto atualizado com sucesso!\n");
     }
@@ -144,9 +145,9 @@ void removerProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha,
         return;
     }
 
-    Produto antes = *p; // Guarda estado antes da remoção
+    Produto antes = *p;
 
-    if (removerProduto(lista, codigo)) 
+    if (removerProduto(lista, codigo))
     {
         printf("Produto removido com sucesso!\n");
     }
@@ -170,7 +171,7 @@ void listarProdutos(ListaProdutos *lista)
     printf("\n==== Lista de Produtos ====\n");
     while (atual)
     {
-        printf("Código: %d | Nome: %s | Quantidade: %d | Preço: R$ %.2f\n", atual->codigo, atual->nome, atual->quantidade, atual->preco);
+        printf("Código: %d | Nome: %s | Quantidade: %d | Preço unitário: R$ %.2f\n", atual->codigo, atual->nome, atual->quantidade, atual->preco);
         atual = atual->prox;
     }
 }
@@ -232,11 +233,11 @@ void desfazerMovimentacao(PilhaMovimentacoes *pilha, ListaProdutos *estoque)
         printf("Desfeita inserção do produto %d.\n", mov->produtoDepois.codigo);
         break;
     case REMOVER:
-        inserirProduto(estoque, mov->produtoAntes.codigo, mov->produtoAntes.nome, mov->produtoAntes.quantidade,mov->produtoAntes.preco);
+        inserirProduto(estoque, mov->produtoAntes.codigo, mov->produtoAntes.nome, mov->produtoAntes.quantidade, mov->produtoAntes.preco);
         printf("Desfeita remoção do produto %d.\n", mov->produtoAntes.codigo);
         break;
     case ATUALIZAR:
-        atualizarProduto(estoque, mov->produtoAntes.codigo, mov->produtoAntes.nome, mov->produtoAntes.quantidade,mov->produtoAntes.preco);
+        atualizarProduto(estoque, mov->produtoAntes.codigo, mov->produtoAntes.nome, mov->produtoAntes.quantidade, mov->produtoAntes.preco);
         printf("Desfeita atualização do produto %d.\n", mov->produtoAntes.codigo);
         break;
     }

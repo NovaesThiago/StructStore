@@ -36,13 +36,13 @@ int main()
         printf("Escolha: ");
         scanf("%d", &opcao);
 
-
         switch (opcao)
         {
         case 1:
             printf("Digite o código do produto: ");
             scanf("%d", &codigo);
-            while (getchar() != '\n');
+            while (getchar() != '\n')
+                ;
 
             printf("Digite o nome do produto: ");
             fgets(nome, sizeof(nome), stdin);
@@ -64,7 +64,8 @@ int main()
         case 3:
             printf("Digite o código do produto a ser atualizado: ");
             scanf("%d", &codigo);
-            while (getchar() != '\n');
+            while (getchar() != '\n')
+                ;
 
             printf("Digite o novo nome do produto: ");
             fgets(nome, sizeof(nome), stdin);
@@ -95,35 +96,35 @@ int main()
             scanf("%d", &codigo);
             enfileirarPedido(&fila, &estoque, codigo);
             break;
-        
+
         case 7:
             desenfileirarPedido(&fila);
             break;
-        
+
         case 8:
             listarPedidos(&fila, &estoque);
             break;
-        
+
         case 9:
             while (getchar() != '\n');
             printf("Digite o nome do produto: ");
             fgets(nome, sizeof(nome), stdin);
             nome[strcspn(nome, "\n")] = 0;
 
-            Produto* encontrado = buscarProdutoNome(&estoque, nome);
+            Produto *encontrado = buscarProdutoNome(&estoque, nome);
             if (encontrado)
-                printf("Produto encontrado: %s | Código: %d | Qtd: %d | Preço: R$ %.2f\n",
+                printf("Produto encontrado: %s | Código: %d | Quantidade: %d | Preço unitário: R$ %.2f\n",
                        encontrado->nome, encontrado->codigo, encontrado->quantidade, encontrado->preco);
             else
                 printf("Produto não encontrado.\n");
             break;
 
         case 10:
-            ordenarPorQuantidade(&estoque);
+            ordenarQuantidade(&estoque);
             break;
 
         case 11:
-            ordenarPorValorTotal(&estoque);
+            ordenarValorTotal(&estoque);
             break;
 
         case 0:

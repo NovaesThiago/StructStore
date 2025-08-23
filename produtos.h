@@ -41,7 +41,7 @@ void inserirProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha,
 void listarProdutos(ListaProdutos *lista);
 
 Produto *buscarProduto(ListaProdutos *lista, int codigo);
-void *buscarProdutoNome(ListaProdutos *lista, char *nome);
+Produto *buscarProdutoNome(ListaProdutos *lista, const char *nome);
 
 int atualizarProduto(ListaProdutos *lista, int codigo, char nome[], int quantidade, float preco);
 void atualizarProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha, int codigo, char novoNome[], int novaQtd, float novoPreco);
@@ -56,8 +56,8 @@ void pushMovimentacao(PilhaMovimentacoes *pilha, TipoOperacao op, Produto antes,
 Movimentacao *popMovimentacao(PilhaMovimentacoes *pilha);
 void desfazerMovimentacao(PilhaMovimentacoes *pilha, ListaProdutos *estoque);
 
-int contarProdutos(Produto* inicio);
-void ordenarQuantidade(Produto* inicio);
-void ordenarValorTotal(Produto* inicio);
+int contarProdutos(ListaProdutos *lista);
+void ordenarQuantidade(ListaProdutos *lista);
+void ordenarValorTotal(ListaProdutos *lista);
 
 #endif
