@@ -40,6 +40,7 @@ void inserirProduto(ListaProdutos *lista, int codigo, char nome[], int quantidad
 void inserirProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha, int codigo, char nome[], int quantidade, float preco);
 void listarProdutos(ListaProdutos *lista);
 Produto *buscarProduto(ListaProdutos *lista, int codigo);
+void *buscarProdutoNome(ListaProdutos *lista, char nome[]);
 int atualizarProduto(ListaProdutos *lista, int codigo, char nome[], int quantidade, float preco);
 void atualizarProdutoComHistorico(ListaProdutos *lista, PilhaMovimentacoes *pilha, int codigo, char novoNome[], int novaQtd, float novoPreco);
 int removerProduto(ListaProdutos *lista, int codigo);

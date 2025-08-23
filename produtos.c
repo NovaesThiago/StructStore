@@ -60,6 +60,15 @@ Produto *buscarProduto(ListaProdutos *lista, int codigo)
     return NULL;
 }
 
+void buscarProdutoNome(Produto* inicio, const char* nome) {
+    while (inicio != NULL) {
+        if (strstr(inicio->nome, nome) != NULL)
+            printf("Encontrado: %s (Código %d)\n", inicio->nome, inicio->codigo);
+        inicio = inicio->prox;
+    }
+}
+
+
 int atualizarProduto(ListaProdutos *lista, int codigo, char nome[], int quantidade, float preco)
 {
     Produto *p = buscarProduto(lista, codigo);
