@@ -1,6 +1,5 @@
 #ifndef FILA_PEDIDOS_H
 #define FILA_PEDIDOS_H
-
 #include "produtos.h"
 
 typedef struct Item
@@ -22,10 +21,12 @@ typedef struct
     Pedido *inicio;
     Pedido *fim;
 } FilaPedidos;
+struct FilaEspera;
+typedef struct FilaEspera FilaEspera;
 
 void inicializarFila(FilaPedidos *fila);
 void adicionarItemPedido(Pedido *pedido, int codigoProduto, int quantidade);
-int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo);
+int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, FilaEspera *filaEspera);
 int desenfileirarPedido(FilaPedidos *fila);
 void listarPedidos(FilaPedidos *fila, ListaProdutos *estoque);
 void liberarFila(FilaPedidos *fila);

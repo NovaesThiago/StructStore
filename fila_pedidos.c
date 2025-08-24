@@ -33,7 +33,7 @@ Pedido *buscarPedido(FilaPedidos *fila, int codigo)
     return NULL;
 }
 
-int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, FilaEspera filaEspera)
+int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, FilaEspera *filaEspera)
 {
     if (buscarPedido(fila, codigo) != NULL)
     {
@@ -72,7 +72,7 @@ int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, Fila
             scanf("%d", &opcao);
             if (opcao == 1)
             {
-                adicionarPedidoEspera(&filaEspera, codigo, codProd, qtd);
+                adicionarPedidoEspera(filaEspera, codigo, codProd, qtd);
                 printf("Item adicionado à fila de espera.\n");
             }
             continue;
