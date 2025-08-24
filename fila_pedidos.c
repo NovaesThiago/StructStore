@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "fila_pedidos.h"
 #include "produtos.h"
+#include "fila_espera.h"
 
 void inicializarFila(FilaPedidos *fila)
 {
@@ -32,7 +33,7 @@ Pedido *buscarPedido(FilaPedidos *fila, int codigo)
     return NULL;
 }
 
-int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo)
+int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, FilaEspera filaEspera)
 {
     if (buscarPedido(fila, codigo) != NULL)
     {
@@ -66,6 +67,14 @@ int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo)
         if (qtd > p->quantidade)
         {
             printf("Quantidade insuficiente no estoque! Disponível: %d\n", p->quantidade);
+            printf("Deseja adicionar o item à fila de espera? (1 - Sim, 0 - Não): ");
+            int opcao;
+            scanf("%d", &opcao);
+            if (opcao == 1)
+            {
+                adicionarPedidoEspera(&filaEspera, codigo, codProd, qtd);
+                printf("Item adicionado à fila de espera.\n");
+            }
             continue;
         }
         adicionarItemPedido(novo, codProd, qtd);
@@ -129,7 +138,7 @@ void listarPedidos(FilaPedidos *fila, ListaProdutos *estoque)
         printf("Fila vazia.\n");
         return;
     }
-    
+
     while (atual)
     {
         printf("Pedido %d:\n", atual->codigo);
