@@ -3,16 +3,19 @@
 #include <string.h>
 #include "produtos.h"
 #include "fila_pedidos.h"
+#include "fila_espera.h"
 
 int main()
 {
     ListaProdutos estoque;
     PilhaMovimentacoes pilha;
     FilaPedidos fila;
+    FilaEspera filaEspera;
 
     inicializarLista(&estoque);
     inicializarPilha(&pilha);
     inicializarFila(&fila);
+    inicializarFilaEspera(&filaEspera);
 
     int opcao, codigo, quantidade;
     char nome[50];
@@ -29,9 +32,10 @@ int main()
         printf("6 - Adicionar pedido\n");
         printf("7 - Remover pedido\n");
         printf("8 - Listar pedidos\n");
-        printf("9 - Buscar produto por nome\n");
-        printf("10 - Ordenar por quantidade\n");
-        printf("11 - Ordenar por valor total\n");
+        printf("9 - Listar fila de espera\n");
+        printf("10 - Buscar produto por nome\n");
+        printf("11 - Ordenar por quantidade\n");
+        printf("12 - Ordenar por valor total\n");
         printf("0 - Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
@@ -94,7 +98,7 @@ int main()
         case 6:
             printf("Digite o código do pedido: ");
             scanf("%d", &codigo);
-            enfileirarPedido(&fila, &estoque, codigo);
+            enfileirarPedido(&fila, &estoque, codigo, &filaEspera);
             break;
 
         case 7:
@@ -106,7 +110,12 @@ int main()
             break;
 
         case 9:
-            while (getchar() != '\n');
+            listarFilaEspera(&filaEspera, &estoque);
+            break;
+
+        case 10:
+            while (getchar() != '\n')
+                ;
             printf("Digite o nome do produto: ");
             fgets(nome, sizeof(nome), stdin);
             nome[strcspn(nome, "\n")] = 0;
@@ -119,11 +128,11 @@ int main()
                 printf("Produto não encontrado.\n");
             break;
 
-        case 10:
+        case 11:
             ordenarQuantidade(&estoque);
             break;
 
-        case 11:
+        case 12:
             ordenarValorTotal(&estoque);
             break;
 

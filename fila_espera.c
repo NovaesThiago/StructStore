@@ -38,7 +38,12 @@ void adicionarPedidoEspera(FilaEspera *fila, int codigoPedido, int codigoProduto
 void listarFilaEspera(FilaEspera *fila, ListaProdutos *estoque)
 {
     PedidoEspera *atual = fila->inicio;
-    while (atual != NULL)
+    if (atual == NULL)
+    {
+        printf("Fila vazia.\n");
+        return;
+    }
+    while (atual)
     {
         printf("Pedido %d em espera:\n", atual->codigoPedido);
         ItemEspera *item = atual->itens;

@@ -35,6 +35,7 @@ Pedido *buscarPedido(FilaPedidos *fila, int codigo)
 
 int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, FilaEspera *filaEspera)
 {
+    int opcao;
     if (buscarPedido(fila, codigo) != NULL)
     {
         printf("Pedido com o código %d já existe.\n", codigo);
@@ -67,8 +68,8 @@ int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, Fila
         if (qtd > p->quantidade)
         {
             printf("Quantidade insuficiente no estoque! Disponível: %d\n", p->quantidade);
+            // alteração para fila de espera
             printf("Deseja adicionar o item à fila de espera? (1 - Sim, 0 - Não): ");
-            int opcao;
             scanf("%d", &opcao);
             if (opcao == 1)
             {
@@ -80,26 +81,28 @@ int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, Fila
         adicionarItemPedido(novo, codProd, qtd);
         p->quantidade -= qtd;
     }
+    if (opcao != 1)
+    {
+        if (novo->itens == NULL)
+        {
+            printf("Nenhum item válido foi adicionado. Pedido cancelado.\n");
+            free(novo);
+            return 0;
+        }
 
-    if (novo->itens == NULL)
-    {
-        printf("Nenhum item válido foi adicionado. Pedido cancelado.\n");
-        free(novo);
-        return 0;
+        if (fila->fim == NULL)
+        {
+            fila->inicio = novo;
+            fila->fim = novo;
+        }
+        else
+        {
+            fila->fim->prox = novo;
+            fila->fim = novo;
+        }
+        printf("Pedido %d adicionado à fila.\n", codigo);
+        return 1;
     }
-
-    if (fila->fim == NULL)
-    {
-        fila->inicio = novo;
-        fila->fim = novo;
-    }
-    else
-    {
-        fila->fim->prox = novo;
-        fila->fim = novo;
-    }
-    printf("Pedido %d adicionado à fila.\n", codigo);
-    return 1;
 }
 
 int desenfileirarPedido(FilaPedidos *fila)
