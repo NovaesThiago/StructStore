@@ -1,4 +1,5 @@
-# Nome do executável
+# Nome do executável, é um compilador de arquivos para compilar digite no terminal: make
+#para rodar digite: ./programa
 TARGET = programa
 
 # Lista de arquivos fonte
