@@ -103,6 +103,7 @@ int enfileirarPedido(FilaPedidos *fila, ListaProdutos *estoque, int codigo, Fila
         printf("Pedido %d adicionado à fila.\n", codigo);
         return 1;
     }
+    return 0;
 }
 
 int desenfileirarPedido(FilaPedidos *fila)
